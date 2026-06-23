@@ -5,6 +5,7 @@
 
 export const SITE = {
   name: "Kalani",
+  twitter: "@kalani.studio",
   legalName: "Reestruturações Digitais",
   // Configure the production origin via env at deploy time; this fallback keeps
   // canonical/OG URLs absolute (required by crawlers) during local dev.
@@ -18,7 +19,6 @@ export const SITE = {
     "Desenvolvedor Web e UX/UI design, utilizando de frameworks e linguagens atuais que garantem um retorno.",
   // Short, keyword-led tagline reused in OG image + hero eyebrow.
   tagline: "Experiências digitais que prendem a atenção.",
-  twitter: "@kalani.studio",
 } as const;
 
 /**
