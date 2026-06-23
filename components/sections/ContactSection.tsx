@@ -366,7 +366,7 @@ export function ContactSection() {
             </a>
 
             <a
-              href="https://www.instagram.com/kalani.studio"
+              href="https://www.instagram.com/kalani.galvao"
               target="_blank"
               rel="noreferrer"
               className="group flex items-center justify-between gap-6 py-6"
