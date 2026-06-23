@@ -124,9 +124,9 @@ export function Hero() {
               reduce={reduce}
             >
               <p className="ml-auto mt-6 max-w-md text-pretty text-lg leading-relaxed text-ink-300 sm:text-xl">
-                Faço uma (re)estruturação digital onde primeiro conversamos
-                sobre o que VOCÊ precisa, e depois trabalhamos juntos para te
-                representar da forma correta em um cenário que vai além do
+                Faremos uma (re)estruturação digital onde primeiro conversamos
+                sobre qual é a sua visão e objetivo, depois trabalhamos juntos para
+                representar-lhe da forma correta em um cenário que vai além do
                 físico.
               </p>
             </Reveal>
