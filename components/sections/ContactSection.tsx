@@ -330,17 +330,16 @@ export function ContactSection() {
       >
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-clay/80">
-            Fale com a Kalani
+            Fale comigo
           </p>
           <h2
             id="contact-heading"
             className="mt-5 text-balance text-4xl font-semibold leading-none tracking-tightest text-ink-100 sm:text-5xl lg:text-6xl"
           >
-            Contate-nos<span className="text-clay">.</span>
+            Contatos<span className="text-clay">.</span>
           </h2>
           <p className="mt-6 max-w-xl text-pretty text-base leading-7 text-ink-300 sm:text-lg">
-            Conte o que você deseja construir, melhorar ou transformar. Vamos
-            entender o cenário e conversar sobre o próximo passo do projeto.
+            Vamos fazer um bate-papo e elaborar um plano para concretizar sua visão em um cenário além do físico.
           </p>
         </div>
 
@@ -377,7 +376,7 @@ export function ContactSection() {
                   Instagram
                 </span>
                 <span className="mt-2 block text-base text-ink-100 sm:text-lg">
-                  @kalani.studio
+                  @kalani.galvao
                 </span>
               </span>
               <span
