@@ -18,6 +18,7 @@ export const SITE = {
     "Desenvolvedor Web e UX/UI design, utilizando de frameworks e linguagens atuais que garantem um retorno.",
   // Short, keyword-led tagline reused in OG image + hero eyebrow.
   tagline: "Experiências digitais que prendem a atenção.",
+  twitter: "@kalani.studio",
 } as const;
 
 /**
