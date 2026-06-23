@@ -255,13 +255,13 @@ export function BeautySection() {
               className="font-mono text-[0.68rem] uppercase tracking-[0.26em]"
               style={{ color: ACCENT }}
             >
-              Para segmentos de beleza
+              Troque o visual e veja a transformação
             </p>
             <h2
               id="beauty-title"
               className="mt-3 text-balance text-3xl font-semibold leading-[1.02] tracking-tightest"
             >
-              Troque o visual e veja a transformação.
+              Para segmentos de beleza.
             </h2>
             <p className="mt-3 text-pretty text-sm leading-6 text-black/62">
               Potencialize salões, clínicas estéticas e marcas de beleza com um
