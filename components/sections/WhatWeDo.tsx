@@ -38,7 +38,7 @@ export function WhatWeDo() {
               id="what-we-do-title"
               className="mt-5 max-w-xl text-balance text-4xl font-semibold leading-[1.03] tracking-tightest text-ink-100 sm:text-5xl lg:text-6xl"
             >
-              Identificação Pessoal e Profissional.
+              Veja abaixo exemplos de como vamos estruturar seu website.
             </h2>
           </div>
 
