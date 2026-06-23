@@ -336,10 +336,10 @@ export function ContactSection() {
             id="contact-heading"
             className="mt-5 text-balance text-4xl font-semibold leading-none tracking-tightest text-ink-100 sm:text-5xl lg:text-6xl"
           >
-            Contatos<span className="text-clay">.</span>
+            Entre em contato<span className="text-clay">.</span>
           </h2>
           <p className="mt-6 max-w-xl text-pretty text-base leading-7 text-ink-300 sm:text-lg">
-            Vamos fazer um bate-papo e elaborar um plano para concretizar sua visão em um cenário além do físico.
+            Agende um bate-papo para elaborarmos um plano e concretizar sua visão em um cenário além do físico.<span>Otimizado, Moderno, do seu jeito.</span>
           </p>
         </div>
 
