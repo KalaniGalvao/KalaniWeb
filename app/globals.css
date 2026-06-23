@@ -1,0 +1,206 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Design tokens. --page-bg / --page-fg are animated by <BackgroundFX/> as the
+  user scrolls, which is what produces the seamless, border-less transition
+  between sections (dim into the "development" act, brighten into "content").
+*/
+:root {
+  --page-bg: #070b16; /* kalani.900 — hero base */
+  --page-fg: #c9d1dc; /* cool desaturated slate (not blue-white) */
+  --spot: 0; /* 0..1 spotlight intensity used by the development section */
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Lenis drives scrolling; native smooth-scroll must stay off to avoid fighting it. */
+  scroll-behavior: auto;
+}
+
+body {
+  background-color: var(--page-bg);
+  color: var(--page-fg);
+  overflow-x: hidden;
+}
+
+/* Lenis recommended baseline */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer base {
+  ::selection {
+    background: theme("colors.clay.DEFAULT");
+    color: theme("colors.cream");
+  }
+  :focus-visible {
+    outline: 2px solid theme("colors.clay.DEFAULT");
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Centered, responsive content rail used by every section. */
+  .container-rail {
+    width: 100%;
+    max-width: theme("maxWidth.container");
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .container-rail {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  /* Highlight treatment — solid clay accent (replaces the old blue gradient). */
+  .accent-text {
+    color: theme("colors.clay.DEFAULT");
+  }
+
+  /* Reusable button styles keep the new palette consistent across sections. */
+  .btn-primary {
+    background-color: theme("colors.clay.DEFAULT");
+    color: theme("colors.cream");
+    transition: background-color 0.2s ease;
+  }
+  .btn-primary:hover {
+    background-color: theme("colors.clay.light");
+  }
+  .btn-secondary {
+    border: 1px solid rgba(130, 141, 158, 0.4); /* ink.400 @ 40% */
+    color: var(--page-fg);
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+  }
+  .btn-secondary:hover {
+    border-color: theme("colors.ink.300");
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+
+  /* Frosted card used in the segment previews. */
+  .glass {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.02)
+    );
+    border: 1px solid rgba(122, 160, 255, 0.14);
+    backdrop-filter: blur(14px);
+  }
+
+  /* Accessible skip link — visually hidden until focused. */
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100%;
+    z-index: 100;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    background: theme("colors.kalani.500");
+    color: white;
+    transition: top 0.2s ease;
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  .anatomy-zone .anatomy-part path {
+    fill: rgba(84, 230, 181, 0);
+    stroke: rgba(118, 247, 202, 0);
+    cursor: pointer;
+    pointer-events: all;
+    transition:
+      fill 0.18s ease,
+      stroke 0.18s ease;
+  }
+
+  .anatomy-zone .anatomy-part path.anatomy-hit-area {
+    display: none;
+    fill: transparent;
+    stroke: transparent;
+    stroke-width: 22;
+    pointer-events: stroke;
+  }
+
+  .anatomy-zone:hover .anatomy-part path,
+  .anatomy-zone:focus-within .anatomy-part path {
+    fill: rgba(84, 230, 181, 0.12);
+    stroke: rgba(118, 247, 202, 0.28);
+  }
+
+  .anatomy-zone .anatomy-part.is-active path {
+    fill: rgba(84, 230, 181, 0.28);
+    stroke: rgba(231, 255, 246, 0.9);
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    .anatomy-zone .anatomy-part path.anatomy-hit-area {
+      display: block;
+      fill: transparent;
+      stroke: transparent;
+      stroke-width: 26;
+      pointer-events: stroke;
+    }
+
+    .anatomy-zone .anatomy-part path {
+      fill: rgba(84, 230, 181, 0.1);
+      stroke: rgba(118, 247, 202, 0.24);
+    }
+
+    .anatomy-zone .anatomy-part path.anatomy-hit-area {
+      fill: transparent;
+      stroke: transparent;
+    }
+
+    .anatomy-zone .anatomy-part.is-active path {
+      fill: rgba(84, 230, 181, 0.34);
+      stroke: rgba(231, 255, 246, 0.96);
+    }
+
+    .anatomy-zone .anatomy-part.is-active path.anatomy-hit-area {
+      fill: transparent;
+      stroke: transparent;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+/*
+  Respect user motion preferences. We hard-disable the heavy scroll choreography
+  and 3D idle motion so the page is calm and fully readable for anyone who asks
+  for reduced motion — content is never hidden behind an animation.
+*/
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
