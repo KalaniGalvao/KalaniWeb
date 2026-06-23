@@ -330,7 +330,7 @@ export function ContactSection() {
       >
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-clay/80">
-            Fale com a Kalani
+            Fale conosco
           </p>
           <h2
             id="contact-heading"
@@ -339,8 +339,7 @@ export function ContactSection() {
             Contate-nos<span className="text-clay">.</span>
           </h2>
           <p className="mt-6 max-w-xl text-pretty text-base leading-7 text-ink-300 sm:text-lg">
-            Conte o que você deseja construir, melhorar ou transformar. Vamos
-            entender o cenário e conversar sobre o próximo passo do projeto.
+            Agende um bate-papo e vamos montar um projeto que garante a sua visão em um cenário além do físico. <span>Responsivo, moderno, do seu jeito.</span>
           </p>
         </div>
 
