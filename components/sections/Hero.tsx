@@ -143,7 +143,7 @@ export function Hero() {
                   onClick={() => smoothScrollTo("#contato")}
                   className="btn-primary rounded-full px-7 py-3.5 font-medium"
                 >
-                  Começar projeto
+                  Entrar em contato
                 </button>
                 <button
                   type="button"
