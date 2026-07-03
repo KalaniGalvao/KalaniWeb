@@ -1,0 +1,271 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Design tokens. --page-bg / --page-fg are animated by <BackgroundFX/> as the
+  user scrolls, which is what produces the seamless, border-less transition
+  between sections (dim into the "development" act, brighten into "content").
+*/
+:root {
+  --page-bg: #070b16; /* kalani.900 — hero base */
+  --page-fg: #c9d1dc; /* cool desaturated slate (not blue-white) */
+  --spot: 0; /* 0..1 spotlight intensity used by the development section */
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Lenis drives scrolling; native smooth-scroll must stay off to avoid fighting it. */
+  scroll-behavior: auto;
+}
+
+body {
+  background-color: var(--page-bg);
+  color: var(--page-fg);
+  overflow-x: hidden;
+}
+
+/* Lenis recommended baseline */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer base {
+  ::selection {
+    background: theme("colors.clay.DEFAULT");
+    color: theme("colors.cream");
+  }
+  :focus-visible {
+    outline: 2px solid theme("colors.clay.DEFAULT");
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Centered, responsive content rail used by every section. */
+  .container-rail {
+    width: 100%;
+    max-width: theme("maxWidth.container");
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .container-rail {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  /* Highlight treatment — solid clay accent (replaces the old blue gradient). */
+  .accent-text {
+    color: theme("colors.clay.DEFAULT");
+  }
+
+  /* Reusable button styles keep the new palette consistent across sections. */
+  .btn-primary {
+    background-color: theme("colors.clay.DEFAULT");
+    color: theme("colors.cream");
+    transition: background-color 0.2s ease;
+  }
+  .btn-primary:hover {
+    background-color: theme("colors.clay.light");
+  }
+  .btn-secondary {
+    border: 1px solid rgba(130, 141, 158, 0.4); /* ink.400 @ 40% */
+    color: var(--page-fg);
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+  }
+  .btn-secondary:hover {
+    border-color: theme("colors.ink.300");
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+
+  /* Frosted card used in the segment previews. */
+  .glass {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.02)
+    );
+    border: 1px solid rgba(122, 160, 255, 0.14);
+    backdrop-filter: blur(14px);
+  }
+
+  /* Accessible skip link — visually hidden until focused. */
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100%;
+    z-index: 100;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    background: theme("colors.kalani.500");
+    color: white;
+    transition: top 0.2s ease;
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  .anatomy-zone .anatomy-part path {
+    fill: rgba(84, 230, 181, 0);
+    stroke: rgba(118, 247, 202, 0);
+    /* Hit-testing lives on the single transparent zone rect; these region
+       outlines are visual-only so overlapping paths never swallow each other. */
+    pointer-events: none;
+    transition:
+      fill 0.18s ease,
+      stroke 0.18s ease;
+  }
+
+  .anatomy-zone:hover .anatomy-part path,
+  .anatomy-zone:focus-within .anatomy-part path {
+    fill: rgba(84, 230, 181, 0.12);
+    stroke: rgba(118, 247, 202, 0.28);
+  }
+
+  .anatomy-zone .anatomy-part.is-active path {
+    fill: rgba(84, 230, 181, 0.28);
+    stroke: rgba(231, 255, 246, 0.9);
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    .anatomy-zone .anatomy-part path {
+      fill: rgba(84, 230, 181, 0.1);
+      stroke: rgba(118, 247, 202, 0.24);
+    }
+
+    .anatomy-zone .anatomy-part.is-active path {
+      fill: rgba(84, 230, 181, 0.34);
+      stroke: rgba(231, 255, 246, 0.96);
+    }
+  }
+
+  /* Liquid-glass service cards — 3D tilt (JS) + specular sheen + a highlight
+     that follows the pointer (--mx/--my), with a press-in on click. */
+  .service-card {
+    transform-style: preserve-3d;
+    transition:
+      transform 0.14s ease,
+      box-shadow 0.25s ease,
+      border-color 0.25s ease;
+    will-change: transform;
+  }
+  .service-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      130deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.03) 44%,
+      rgba(255, 255, 255, 0.08) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .service-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      circle at var(--mx, 50%) var(--my, 50%),
+      rgba(255, 255, 255, 0.18) 0%,
+      transparent 55%
+    );
+    opacity: 0;
+    transition: opacity 0.18s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .service-card:hover {
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow:
+      0 26px 60px -22px rgba(0, 0, 0, 0.7),
+      inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  }
+  .service-card:hover::before,
+  .service-card:hover::after,
+  .service-card:focus-visible::before,
+  .service-card:focus-visible::after {
+    opacity: 1;
+  }
+  .service-card > * {
+    position: relative;
+    z-index: 3;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+/*
+  Respect user motion preferences. We hard-disable the heavy scroll choreography
+  and 3D idle motion so the page is calm and fully readable for anyone who asks
+  for reduced motion — content is never hidden behind an animation.
+*/
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Cross-page fade (View Transitions API) ─────────────────────────────────
+   Cross-document navigations fade automatically; same-document (SPA) ones are
+   wrapped in document.startViewTransition() (see lib/viewTransition.ts). The
+   <main id="conteudo"> carries a named group so the fade is smooth on both. */
+@view-transition {
+  navigation: auto;
+}
+#conteudo {
+  view-transition-name: pagecontent;
+}
+::view-transition-old(root),
+::view-transition-old(pagecontent) {
+  animation: bno-fade-out 260ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+::view-transition-new(root),
+::view-transition-new(pagecontent) {
+  animation: bno-fade-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+::view-transition-group(pagecontent) {
+  animation-duration: 420ms;
+}
+@keyframes bno-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes bno-fade-in {
+  from {
+    opacity: 0;
+  }
+}
